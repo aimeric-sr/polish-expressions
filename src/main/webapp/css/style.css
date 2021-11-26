@@ -1,0 +1,106 @@
+#boutonJeu {
+    margin-top: 200px;
+}
+
+.centrerElement {
+    display: flex;
+    text-align: left;
+    justify-content: center;
+}
+
+#titrePage {
+    color: white;
+    background: #6c8a69;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#boutonJeu a {
+    text-decoration: none;
+    color: white;
+    background: #99c796;
+    padding: 30px;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+#boutonJeu a:hover {
+    background: #6c8a69;
+}
+
+table {
+    width: 100%;
+}
+
+.boutonLogin {
+    text-decoration: none;
+    color: white;
+    background: #99c796;
+    padding: 30px;
+    border-radius: 20px;
+    font-size: 20px;
+    border: none;
+}
+
+.boutonLogin:hover {
+    background: #6c8a69;
+    color: white;
+
+}
+
+.boutonDisconnect {
+    text-decoration: none;
+    color: white;
+    background: #99c796;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 20px;
+    border: none;
+}
+
+.boutonDisconnect:hover {
+    background: #6c8a69;
+    color: white;
+}
+
+.disconnect {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-right: 10px
+}
+
+tr {
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.elementConnexion {
+    display: flex;
+    text-align: left;
+    justify-content: space-evenly;
+}
+
+a.boutonCancel {
+    padding: 10px 30px;
+}
+
+input.boutonCancel {
+    padding: 5px 25px;
+}
+
+.boutonCancel {
+    margin-top: 30px;
+    text-decoration: none;
+    color: white;
+    background: #99c796;
+    border-radius: 20px;
+    font-size: 20px;
+    border: none;
+}
+
+.boutonCancel:hover {
+    background: #6c8a69;
+    color: white;
+}
