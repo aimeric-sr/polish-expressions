@@ -1,24 +1,29 @@
 package epsi.b3.polish.conn;
 
+import java.io.*;
+import java.lang.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class MySQLConnUtils {
 
     public static Connection getMySQLConnection()
-            throws ClassNotFoundException, SQLException {
+            throws ClassNotFoundException, SQLException, IOException {
         // Remarque: Modifiez les paramètres de connexion en conséquence.
         String hostName = "localhost";
         String dbName = "polish";
         String userName = "root";
-        String password = "";
+        String password = "Kikine44";
         return getMySQLConnection(hostName, dbName, userName, password);
     }
 
     public static Connection getMySQLConnection(String hostName, String dbName,
                                                 String userName, String password) throws SQLException,
-            ClassNotFoundException {
+            ClassNotFoundException, IOException {
+
 
         Class.forName("com.mysql.jdbc.Driver");
 

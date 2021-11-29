@@ -13,8 +13,8 @@
 <h1 class="centrerElement" id="titrePage">Veuillez vous inscrire/connecter pour pouvoir jouer</h1>
 
 <div class="elementConnexion" id="boutonJeu">
-    <a href="/polish/register">S'inscrire</a>
-    <a href="/polish/login">Se connecter</a>
+    <a href="${pageContext.request.contextPath}/register">S'inscrire</a>
+    <a href="${pageContext.request.contextPath}/login">Se connecter</a>
 </div>
 </body>
 </html>

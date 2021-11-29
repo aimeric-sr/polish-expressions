@@ -1,6 +1,8 @@
 # Compiled class file
 *.class
 
+src/main/ressources/config.env
+
 # Log file
 *.log
 

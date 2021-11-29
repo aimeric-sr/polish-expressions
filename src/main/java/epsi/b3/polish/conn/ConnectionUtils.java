@@ -1,12 +1,13 @@
 package epsi.b3.polish.conn;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ConnectionUtils {
 
     public static Connection getConnection()
-            throws ClassNotFoundException, SQLException {
+            throws ClassNotFoundException, SQLException, IOException {
 
         // Ici, je me connecte à l'Oracle Database.
         // (Vous pouvez également utiliser d'autre base de données).

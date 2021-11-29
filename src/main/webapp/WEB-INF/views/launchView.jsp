@@ -25,7 +25,7 @@
 </div>
 
 <div class="centrerElement" id="boutonJeu">
-    <a href="/polish/game">C'est parti !</a>
+    <a href="${pageContext.request.contextPath}/game">C'est parti !</a>
 </div>
 
 <div style="display: flex; justify-content: center; margin-top: 30px">

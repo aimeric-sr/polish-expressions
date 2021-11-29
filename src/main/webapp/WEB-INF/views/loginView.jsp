@@ -16,15 +16,15 @@
     <form method="POST" action="${pageContext.request.contextPath}/login">
         <table border="0">
             <tr>
-                <td>User Name</td>
+                <td>Nom d'utilisateur</td>
                 <td><input type="text" name="userName" value="${user.userName}"/></td>
             </tr>
             <tr>
-                <td>Password</td>
-                <td><input type="text" name="password" value="${user.password}"/></td>
+                <td>Mot de passe</td>
+                <td><input type="password" name="password" value="${user.password}"/></td>
             </tr>
             <tr>
-                <td>Remember me</td>
+                <td>Se souvenir de moi</td>
                 <td><input type="checkbox" name="rememberMe" value="Y"/></td>
             </tr>
             <tr>
@@ -35,7 +35,7 @@
             </tr>
         </table>
 
-        <p style="color: red;">${errorString}</p>
+        <p style="color: red; margin-top: 20px;">${errorString}</p>
     </form>
 </div>
 </body>
