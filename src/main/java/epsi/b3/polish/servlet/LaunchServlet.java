@@ -17,7 +17,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(urlPatterns = { "/start" })
+
+/**
+ * Affiche et permet des actions sur la page de lancement de parti.
+ */
+@WebServlet(urlPatterns = {"/start"})
 public class LaunchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -25,23 +29,29 @@ public class LaunchServlet extends HttpServlet {
         super();
     }
 
+    /**
+     * Permet l'affichage de la page de jeu.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        System.out.println("Session : " + session);
-        // Vérifiez si l'utilisateur s'est connecté (login) ou pas.
+        // Vérifiez si l'utilisateur s'est connecté ou pas.
         UserAccount loginedUser = MyUtils.getLoginedUser(session);
 
-        // Pas connecté (login).
+        // Si on n'est pas connecté.
         if (loginedUser == null) {
-            // Redirect (Réorenter) vers la page de connexion.
+            // Redirection vers la page de connexion.
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
-        // Enregistrez des informations à l'attribut de la demande avant de forward (transmettre).
-        request.setAttribute("user", loginedUser);
         Connection conn = MyUtils.getStoredConnection(request);
+        // On récupère les dix meilleurs scores.
         ArrayList<Score> scores = new ArrayList<>();
         try {
             scores = DBUtils.findBestScores(conn);
@@ -50,14 +60,21 @@ public class LaunchServlet extends HttpServlet {
         }
         request.setAttribute("scores", scores);
 
-        // Si l'utilisateur s'est connecté, forward (transmettre) vers la page
-        // /WEB-INF/views/userInfoView.jsp
-        RequestDispatcher dispatcher //
+        // Si l'utilisateur s'est connecté, on affiche la page
+        RequestDispatcher dispatcher
                 = this.getServletContext().getRequestDispatcher("/WEB-INF/views/launchView.jsp");
         dispatcher.forward(request, response);
 
     }
 
+    /**
+     * Redirige vers la page de lancement de partie lors d'un clic sur certains boutons.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

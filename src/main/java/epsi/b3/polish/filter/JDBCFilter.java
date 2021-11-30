@@ -11,7 +11,11 @@ import java.sql.Connection;
 import java.util.Collection;
 import java.util.Map;
 
-@WebFilter(filterName = "jdbcFilter", urlPatterns = { "/*" })
+/**
+ * Vérifie la requête pour assurer qu'il ouvre uniquement la connexion JDBC pour des requêtes nécessaires,
+ * par exemple, pour Servlet, évitez d'ouvrir la connexion JDBC pour les requêtes générales comme image, css, js, html.
+ */
+@WebFilter(filterName = "jdbcFilter", urlPatterns = {"/*"})
 public class JDBCFilter implements Filter {
 
     public JDBCFilter() {
@@ -27,9 +31,13 @@ public class JDBCFilter implements Filter {
 
     }
 
-    // Vérifiez que la cible de la requête est une servlet??
+    /**
+     * Vérifie que la cible de la requête est une servlet.
+     *
+     * @param request la requête
+     * @return
+     */
     private boolean needJDBC(HttpServletRequest request) {
-        System.out.println("JDBC Filter");
         //
         // Servlet Url-pattern: /spath/*
         //
@@ -62,35 +70,36 @@ public class JDBCFilter implements Filter {
         return false;
     }
 
+    /**
+     * Ouvre ou non la connexion JDBC si la cible est bien une servlet.
+     *
+     * @param request  la requête
+     * @param response la réponse
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
 
-        // N'ouvrez que connection (la connexion) pour des demandes ayant des chemins spéciaux.
-        // (Par exemple: Des chemins vont vers servlet, jsp, ..)
-        // Évitez d'ouvrir Connection pour des demandes demandes normales.
-        // (Par exemple: image, css, javascript,... )
         if (this.needJDBC(req)) {
-
-            System.out.println("Open Connection for: " + req.getServletPath());
 
             Connection conn = null;
             try {
-                // Créez des objets Connection se connecte à la base de données.
+                // Crée un objet Connection se connectant à la base de données.
                 conn = ConnectionUtils.getConnection();
-                // Définissez automatiquement commit false.
                 conn.setAutoCommit(false);
 
-                // Enregistrez l'objet Connection dans l'attribut de la demande.
+                // Enregistre l'objet Connection dans l'attribut de la demande.
                 MyUtils.storeConnection(request, conn);
 
-                // Autorisez la demande d'aller en avant.
-                // (Allez au filtre suivant ou à la cible).
+                // Allez au filtre suivant ou à la cible.
                 chain.doFilter(request, response);
 
-                // Appelez la méthode commit() pour finir la transaction avec DB.
+                // Appelle la méthode commit() pour finir la transaction avec DB.
                 conn.commit();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -99,12 +108,8 @@ public class JDBCFilter implements Filter {
             } finally {
                 ConnectionUtils.closeQuietly(conn);
             }
-        }
-        // Pour des demandes communes (image,css,html,..)
-        // ce n'est pas obligatoire d'ouvrir connection.
-        else {
-            // Permettez la demande d'aller en avant.
-            // (Allez au filtre suivant ou à la cible).
+        } else {
+            // Allez au filtre suivant ou à la cible.
             chain.doFilter(request, response);
         }
 

@@ -12,7 +12,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebFilter(filterName = "cookieFilter", urlPatterns = { "/*" })
+/**
+ * Vérifie l'information de Cookie stockée par le navigateur et la connexion Login
+ */
+@WebFilter(filterName = "cookieFilter", urlPatterns = {"/*"})
 public class CookieFilter implements Filter {
 
     public CookieFilter() {
@@ -35,14 +38,13 @@ public class CookieFilter implements Filter {
         HttpSession session = req.getSession();
 
         UserAccount userInSession = MyUtils.getLoginedUser(session);
-        //
         if (userInSession != null) {
             session.setAttribute("COOKIE_CHECKED", "CHECKED");
             chain.doFilter(request, response);
             return;
         }
 
-        // La Connecxion a été créée dans JDBCFilter.
+        // La Connexion a été créée dans JDBCFilter.
         Connection conn = MyUtils.getStoredConnection(request);
 
         // Le drapeau (flag) sert à vérifier Cookie.
@@ -55,7 +57,7 @@ public class CookieFilter implements Filter {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            // Marquez qu'il a vérifié Cookie.
+            // Marque qu'il a vérifié Cookie.
             session.setAttribute("COOKIE_CHECKED", "CHECKED");
         }
 

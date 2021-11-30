@@ -3,6 +3,9 @@ package epsi.b3.polish.filter;
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * Permet l'encodage des pages jsp en UTF-8
+ */
 public class CharsetFilter implements Filter {
 
     private String encoding;

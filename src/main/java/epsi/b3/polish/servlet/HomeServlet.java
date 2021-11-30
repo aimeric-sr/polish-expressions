@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = { "/home"})
+/**
+ * Permet l'affichage de la page de home.
+ */
+@WebServlet(urlPatterns = {"/home"})
 public class HomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -16,23 +19,22 @@ public class HomeServlet extends HttpServlet {
         super();
     }
 
+    /**
+     * Permet l'affichage de la page home.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
-        // Forward to /WEB-INF/views/homeView.jsp
-        // (Users can not access directly into JSP pages placed in WEB-INF)
+        // On affiche la page home.
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/homeView.jsp");
-
         dispatcher.forward(request, response);
 
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
     }
 
 }

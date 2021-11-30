@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Permet de gérer la connexion à la base de données.
+ */
 public class ConnectionUtils {
 
     /**
+     * Fonction permettant de d'accéder à la connexion de la base de données.
      *
-     * @return
+     * @return la connexion à la base de données
      * @throws ClassNotFoundException
      * @throws SQLException
      * @throws IOException
@@ -16,12 +20,12 @@ public class ConnectionUtils {
     public static Connection getConnection()
             throws ClassNotFoundException, SQLException, IOException {
 
-        // Connection à la base de données MySQL
+        // Connexion à la base de données MySQL
         return MySQLConnUtils.getMySQLConnection();
     }
 
     /**
-     * Fonction permettant de fermer la connection avec la base de données.
+     * Fonction permettant de fermer la connexion avec la base de données.
      *
      * @param conn
      */

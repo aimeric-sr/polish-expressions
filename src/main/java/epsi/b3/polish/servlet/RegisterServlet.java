@@ -15,7 +15,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = { "/register" })
+/**
+ * Affiche et permet des actions sur la page d'inscription.
+ */
+@WebServlet(urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -23,23 +26,35 @@ public class RegisterServlet extends HttpServlet {
         super();
     }
 
-    // Affichez la page de connexion.
+    /**
+     * Affiche la page d'inscription.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Transmettez vers la page /WEB-INF/views/loginView.jsp
-        // (L'utilisateur ne peut pas accéder directement
-        // à la page JSP qui se trouve dans le dossier WEB-INF).
-        RequestDispatcher dispatcher //
+        // Affiche la page de register.
+        RequestDispatcher dispatcher
                 = this.getServletContext().getRequestDispatcher("/WEB-INF/views/registerView.jsp");
 
         dispatcher.forward(request, response);
 
     }
 
-    // Lorsque l'utilisateur saisit userName & password, et presse le bouton Submit.
-    // Cette méthode sera exécutée.
+    /**
+     * Renvoie vers la page de lancement de partie si les cahnmps saisit sont corrects et crées un
+     * nouvel utilsateur si celui-ci n'existe pas.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -58,7 +73,7 @@ public class RegisterServlet extends HttpServlet {
         } else {
             Connection conn = MyUtils.getStoredConnection(request);
             try {
-                // Cherchez user dans DB.
+                // On cherche user dans DB.
                 user = DBUtils.findUser(conn, userName, password);
 
                 if (user == null) {
@@ -66,8 +81,7 @@ public class RegisterServlet extends HttpServlet {
                     user.setUserName(userName);
                     user.setPassword(password);
                     DBUtils.insertUser(conn, user);
-                }
-                else{
+                } else {
                     hasError = true;
                     errorString = "Cet utilisateur existe déjà";
 
@@ -78,26 +92,25 @@ public class RegisterServlet extends HttpServlet {
                 errorString = e.getMessage();
             }
         }
-        // Au cas où il y a des erreurs,
-        // forward (transmettre) vers /WEB-INF/views/login.jsp
+        // On vérifie s'il y a des erreurs
         if (hasError) {
             user = new UserAccount();
             user.setUserName(userName);
             user.setPassword(password);
 
-            // Enregistrez des données dans l'attribut de la demande avant de les transmettre.
+            // On enregistre des données dans l'attribut de la demande avant de les transmettre.
             request.setAttribute("errorString", errorString);
             request.setAttribute("user", user);
 
-            // Forward (Transmettre) vers la page /WEB-INF/views/login.jsp
+            // On redirige vers la page register
             RequestDispatcher dispatcher //
                     = this.getServletContext().getRequestDispatcher("/WEB-INF/views/registerView.jsp");
 
             dispatcher.forward(request, response);
         }
         // S'il n'y a pas de l'erreur.
-        // Enregistrez les informations de l'utilisateur dans Session.
-        // Et transmettez vers la page userInfo.
+        // On enregistre les informations de l'utilisateur dans Session,
+        // et on transmet vers la page userInfo.
         else {
             HttpSession session = request.getSession();
             MyUtils.storeLoginedUser(session, user);
@@ -106,11 +119,11 @@ public class RegisterServlet extends HttpServlet {
             if (remember) {
                 MyUtils.storeUserCookie(response, user);
             }
-            // Si non, supprimez Cookie
+            // Si non, on supprime Cookie
             else {
                 MyUtils.deleteUserCookie(response);
             }
-            // Redirect (Réorienter) vers la page /userInfo.
+            // On redirige vers la page start.
             response.sendRedirect(request.getContextPath() + "/start");
         }
     }

@@ -2,7 +2,6 @@ package epsi.b3.polish.servlet;
 
 import epsi.b3.polish.utils.MyUtils;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = { "/disconnect" })
+/**
+ * Permet la déconnexion lors d'un clic sur le bouton quitter.
+ */
+@WebServlet(urlPatterns = {"/disconnect"})
 public class DisconnectServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -19,33 +21,24 @@ public class DisconnectServlet extends HttpServlet {
         super();
     }
 
-    // Affichez la page de connexion.
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        // Transmettez vers la page /WEB-INF/views/loginView.jsp
-        // (L'utilisateur ne peut pas accéder directement
-        // à la page JSP qui se trouve dans le dossier WEB-INF).
-        RequestDispatcher dispatcher //
-                = this.getServletContext().getRequestDispatcher("/WEB-INF/views/registerView.jsp");
-
-        dispatcher.forward(request, response);
-
-    }
-
-    // Lorsque l'utilisateur saisit userName & password, et presse le bouton Submit.
-    // Cette méthode sera exécutée.
+    /**
+     * Lorsque l'utilisateur clique sur le bouton quitter, il est redirigé vers
+     * la page home et est déconnecté.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
         HttpSession session = request.getSession();
 
-            MyUtils.storeLoginedUser(session, null);
-            MyUtils.deleteUserCookie(response);
-            response.sendRedirect(request.getContextPath() + "/home");
+        MyUtils.storeLoginedUser(session, null);
+        MyUtils.deleteUserCookie(response);
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
 }

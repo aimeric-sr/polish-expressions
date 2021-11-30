@@ -17,7 +17,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(urlPatterns = { "/result" })
+/**
+ * Affiche la page de résultat.
+ */
+@WebServlet(urlPatterns = {"/result"})
 public class ResultServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -25,23 +28,29 @@ public class ResultServlet extends HttpServlet {
         super();
     }
 
+    /**
+     * Affiche la page de résultat.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        System.out.println("Session : " + session);
-        // Vérifiez si l'utilisateur s'est connecté (login) ou pas.
+        // On vérifie si l'utilisateur s'est connecté ou pas.
         UserAccount loginedUser = MyUtils.getLoginedUser(session);
 
-        // Pas connecté (login).
+        // Si on n'est pas connecté.
         if (loginedUser == null) {
-            // Redirect (Réorenter) vers la page de connexion.
+            // Redirection vers la page home.
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
-        // Enregistrez des informations à l'attribut de la demande avant de forward (transmettre).
-        request.setAttribute("user", loginedUser);
         Connection conn = MyUtils.getStoredConnection(request);
+        // On récupère les dix meilleurs scores
         ArrayList<Score> scores = new ArrayList<>();
         try {
             scores = DBUtils.findBestScores(conn);
@@ -51,6 +60,7 @@ public class ResultServlet extends HttpServlet {
         request.setAttribute("scores", scores);
 
         int actualScore = 0;
+        // On récupère le score que vient de faire le joueur.
         try {
             actualScore = DBUtils.LatestScore(conn, loginedUser.getUserName());
         } catch (SQLException e) {
@@ -59,18 +69,10 @@ public class ResultServlet extends HttpServlet {
 
         request.setAttribute("actualScore", actualScore);
 
-        // Si l'utilisateur s'est connecté, forward (transmettre) vers la page
-        // /WEB-INF/views/userInfoView.jsp
+        // Si l'utilisateur s'est connecté, on affiche la page result
         RequestDispatcher dispatcher //
                 = this.getServletContext().getRequestDispatcher("/WEB-INF/views/resultView.jsp");
         dispatcher.forward(request, response);
 
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
-
 }

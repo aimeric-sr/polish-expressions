@@ -20,6 +20,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * Affiche et permet des actions sur la page de jeu.
+ */
 @WebServlet(urlPatterns = {"/game"})
 public class GameServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -30,50 +33,67 @@ public class GameServlet extends HttpServlet {
         super();
     }
 
+    /**
+     * Permet l'affichage de la page de jeu.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         listExpressions = new ArrayList<>();
         HttpSession session = request.getSession();
-        System.out.println("Session : " + session);
-        // Vérifiez si l'utilisateur s'est connecté (login) ou pas.
+        // Vérifiez si l'utilisateur s'est connecté ou pas.
         UserAccount loginedUser = MyUtils.getLoginedUser(session);
 
-        // Pas connecté (login).
+        // Si on n'est pas connecté.
         if (loginedUser == null) {
-            // Redirect (Réorenter) vers la page de connexion.
+            // Redirection vers la page de connexion.
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        // Enregistrez des informations à l'attribut de la demande avant de forward (transmettre).
+        // Enregistrez des informations à l'attribut de la demande avant de rediriger.
         request.setAttribute("user", loginedUser);
         Connection conn = MyUtils.getStoredConnection(request);
         ArrayList<Integer> myScores = new ArrayList<>();
+        // On récupère les meilleurs scores du joueur.
         try {
             myScores = DBUtils.findMyScores(conn, loginedUser.getUserName());
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        // On génère dix expressions aléatoires.
         for (int i = 0; i < 10; ++i) {
             Expression expression = new Expression();
             listExpressions.add(expression);
-            System.out.println(listExpressions.get(i).getResultExpression());
         }
 
         request.setAttribute("listExpressions", listExpressions);
         request.setAttribute("myScores", myScores);
-        // Si l'utilisateur s'est connecté, forward (transmettre) vers la page
-        // /WEB-INF/views/userInfoView.jsp
+        // Si l'utilisateur s'est connecté, redirigé vers la page de jeu.
         RequestDispatcher dispatcher //
                 = this.getServletContext().getRequestDispatcher("/WEB-INF/views/gameView.jsp");
         dispatcher.forward(request, response);
 
     }
 
+    /**
+     * Permet la redirection vers la page result si tous les champs
+     * sont remplis avec des valuers corrects.
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Déclaration de variables.
         boolean hasError = false;
         String errorString = null;
         HttpSession session = request.getSession();
@@ -81,6 +101,7 @@ public class GameServlet extends HttpServlet {
         String[] selectedAnswers = {"", "", "", "", "", "", "", "", "", ""};
         int score = 0;
         String answer = "";
+        // Vérifie si les champs sont remplis correctement et on compare avec le résultat attendu.
         for (int i = 0; i < 10; ++i) {
             answer = request.getParameter("calcul" + i);
             if (answer.toLowerCase(Locale.ROOT).equals("impossible")) selectedAnswers[i] = answer;
@@ -125,6 +146,7 @@ public class GameServlet extends HttpServlet {
                 }
             }
         }
+        // Vérifie s'il y a une erreur.
         if (hasError) {
             Connection conn = MyUtils.getStoredConnection(request);
 
@@ -144,11 +166,13 @@ public class GameServlet extends HttpServlet {
                     = this.getServletContext().getRequestDispatcher("/WEB-INF/views/gameView.jsp");
 
             dispatcher.forward(request, response);
-        } else {
+        }
+        // Ajoute un score et redirige vers la page result.
+        else {
             Connection conn = MyUtils.getStoredConnection(request);
             Score totalScore = new Score(score, loginedUser.getUserName());
             try {
-                DBUtils.insertProduct(conn, totalScore);
+                DBUtils.insertScore(conn, totalScore);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

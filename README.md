@@ -105,6 +105,12 @@ Configurer Tomcat dans Intellij comme-suit :
 * [MySQL](https://www.mysql.com/fr/) - Système de gestion de bases de données relationnelles
 * [Apache Tomcat](http://tomcat.apache.org/) - Serveur d'applications
 
+## Sources
+
+* [https://devstory.net/10285/creer-une-application-web-java-simple-a-l-aide-de-servlet-jsp-et-jdbc](https://devstory.net/10285/creer-une-application-web-java-simple-a-l-aide-de-servlet-jsp-et-jdbc)
+* [https://www.it-swarm-fr.com/fr/java/comment-faire-fonctionner-utf-8-dans-java-webapps/958415400/](https://www.it-swarm-fr.com/fr/java/comment-faire-fonctionner-utf-8-dans-java-webapps/958415400/)
+
+
 ## Auteurs
 * **[Aimeric Sorin](https://github.com/EtienneLep)**
 * **[Etienne Lepetit](https://github.com/aimeric-sr)**

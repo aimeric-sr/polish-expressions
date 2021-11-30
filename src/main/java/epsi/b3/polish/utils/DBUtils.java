@@ -8,10 +8,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Permet toutes les actions sur la base de données
+ */
 public class DBUtils {
 
+    /**
+     * Retourne un utilisateur en fonction de son nom et de son mot de passe,
+     * s'il existe.
+     *
+     * @param conn
+     * @param userName son nom d'utilisateur
+     * @param password son mot de passe
+     * @return l'utilsateur recherché
+     * @throws SQLException
+     */
     public static UserAccount findUser(Connection conn, //
                                        String userName, String password) throws SQLException {
 
@@ -32,6 +44,15 @@ public class DBUtils {
         return null;
     }
 
+    /**
+     * Retourne un utilisateur en fonction de seulement son nom,
+     * s'il existe.
+     *
+     * @param conn
+     * @param userName son nom
+     * @return l'utilsateur recherché
+     * @throws SQLException
+     */
     public static UserAccount findUser(Connection conn, String userName) throws SQLException {
 
         String sql = "Select a.User_Name, a.Password from User_Account a "//
@@ -44,7 +65,6 @@ public class DBUtils {
 
         if (rs.next()) {
             String password = rs.getString("Password");
-            System.out.println( "username : " + rs.getString("User_Name"));
             UserAccount user = new UserAccount();
             user.setUserName(userName);
             user.setPassword(password);
@@ -53,6 +73,13 @@ public class DBUtils {
         return null;
     }
 
+    /**
+     * Permet d'ajouter un utilisateur à la base de données.
+     *
+     * @param conn
+     * @param user un utilisateur
+     * @throws SQLException
+     */
     public static void insertUser(Connection conn, UserAccount user) throws SQLException {
         String sql = "Insert into User_Account(User_Name, Password) values (?,?)";
 
@@ -64,24 +91,15 @@ public class DBUtils {
         pstm.executeUpdate();
     }
 
-    public static List<Score> queryProduct(Connection conn) throws SQLException {
-        String sql = "Select a.Score, a.User_Name from Score a ";
-
-        PreparedStatement pstm = conn.prepareStatement(sql);
-
-        ResultSet rs = pstm.executeQuery();
-        List<Score> list = new ArrayList<Score>();
-        while (rs.next()) {
-            int score = rs.getInt("Score");
-            String userName = rs.getString("User_Name");
-            Score product = new Score();
-            product.setScore(score);
-            product.setUserName(userName);
-            list.add(product);
-        }
-        return list;
-    }
-
+    /**
+     * Permet de trouver les dix meilleurs scores d'un utilisateur.
+     *
+     * @param conn
+     * @param userName le nom de l'utilisateur
+     * @return une liste d'entier correspondant aux 10 meileurs scores
+     * de l'utilisateur, par ordre décroissant
+     * @throws SQLException
+     */
     public static ArrayList<Integer> findMyScores(Connection conn, String userName) throws SQLException {
         String sql = "Select a.Score from Scores a where a.User_Name=? order by a.Score DESC LIMIT 10";
 
@@ -99,6 +117,12 @@ public class DBUtils {
         return scores;
     }
 
+    /**
+     * Permet de trouver les dix meilleurs scores au total, ainsi que les utilisateurs ayant fait ces scores.
+     * @param conn
+     * @return une liste de correspondant aux 10 meileurs scores, avec le nom des joueurs, par ordre décroissant
+     * @throws SQLException
+     */
     public static ArrayList<Score> findBestScores(Connection conn) throws SQLException {
         String sql = "Select a.Score, a.User_Name from Scores a order by a.Score DESC LIMIT 10";
 
@@ -118,19 +142,14 @@ public class DBUtils {
         }
         return scores;
     }
-/*
-    public static void updateProduct(Connection conn, Score product) throws SQLException {
-        String sql = "Update Product set Name =?, Price=? where Code=? ";
 
-        PreparedStatement pstm = conn.prepareStatement(sql);
-
-        pstm.setString(1, product.getName());
-        pstm.setFloat(2, product.getPrice());
-        pstm.setString(3, product.getCode());
-        pstm.executeUpdate();
-    }
-*/
-    public static void insertProduct(Connection conn, Score score) throws SQLException {
+    /**
+     * Permet d'ajouter un nouveau score à la base de données.
+     * @param conn
+     * @param score un objet Score comprenant le score et le nom de l'utilisateur.
+     * @throws SQLException
+     */
+    public static void insertScore(Connection conn, Score score) throws SQLException {
         String sql = "Insert into Scores(Score, User_name) values (?,?)";
 
         PreparedStatement pstm = conn.prepareStatement(sql);
@@ -141,6 +160,13 @@ public class DBUtils {
         pstm.executeUpdate();
     }
 
+    /**
+     * Permet d'obtenir le dernier score fait par un joueur pour afficher son score sur la page de résultat.
+     * @param conn
+     * @param userName le nom de l'utilisateur
+     * @return son dernier score en date
+     * @throws SQLException
+     */
     public static int LatestScore(Connection conn, String userName) throws SQLException {
         String sql = "Select id, Score from Scores where User_Name=? ORDER BY id DESC LIMIT 1";
 
@@ -155,16 +181,4 @@ public class DBUtils {
         }
         return 0;
     }
-
-/*
-    public static void deleteProduct(Connection conn, String code) throws SQLException {
-        String sql = "Delete From Product where Code= ?";
-
-        PreparedStatement pstm = conn.prepareStatement(sql);
-
-        pstm.setString(1, code);
-
-        pstm.executeUpdate();
-    }
-*/
 }
