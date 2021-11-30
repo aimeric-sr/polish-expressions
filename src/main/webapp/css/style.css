@@ -1,21 +1,23 @@
-#boutonJeu {
-    margin-top: 200px;
-}
-
-.centrerElement {
+/*Titre haut de page*/
+.titleElement {
+    min-height: 6vh;
+    color: white;
+    background: #6c8a69;
     display: flex;
     text-align: left;
     justify-content: center;
 }
 
-#titrePage {
-    color: white;
-    background: #6c8a69;
-    padding-top: 10px;
-    padding-bottom: 10px;
+/*Élements page home*/
+#centeredElements {
+    min-height: 94vh;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
-#boutonJeu a {
+.connexionButton {
     text-decoration: none;
     color: white;
     background: #99c796;
@@ -24,30 +26,43 @@
     font-size: 20px;
 }
 
-#boutonJeu a:hover {
+.connexionButton:hover {
     background: #6c8a69;
+    color: white;
 }
 
-table {
-    width: 100%;
+/*Centre l'élément se souvenir de moi*/
+.centeredAlign tr, .centeredAlign {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
 }
 
-.boutonLogin {
+/*Boutons pages connexion et inscription*/
+a.loginButton {
+    padding: 30px;
+}
+
+input.loginButton {
+    padding: 27px;
+}
+
+.loginButton {
     text-decoration: none;
     color: white;
     background: #99c796;
-    padding: 30px;
     border-radius: 20px;
     font-size: 20px;
     border: none;
 }
 
-.boutonLogin:hover {
+.loginButton:hover {
     background: #6c8a69;
     color: white;
 
 }
 
+/*Bouton de déconnexion*/
 .boutonDisconnect {
     text-decoration: none;
     color: white;
@@ -70,16 +85,48 @@ table {
     margin-right: 10px
 }
 
-tr {
-    margin-left: 20px;
+/*Launch page*/
+#letsGo {
+    min-height: 44vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.bestScore {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+table {
+    width: 100%;
+}
+
+.classementScores {
     display: flex;
     justify-content: space-evenly;
 }
 
-.elementConnexion {
+.centeredText {
     display: flex;
-    text-align: left;
-    justify-content: space-evenly;
+    justify-content: center;
+    margin: 5px 100px;
+}
+
+.margin20{
+    margin-top: 20px;
+}
+
+.margin2020{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#test{
+    display: flex;
+    justify-items: center;
 }
 
 a.boutonCancel {
@@ -87,20 +134,35 @@ a.boutonCancel {
 }
 
 input.boutonCancel {
-    padding: 5px 25px;
+    padding: 5px 30px;
 }
 
 .boutonCancel {
-    margin-top: 30px;
+    margin-top: 20px;
     text-decoration: none;
     color: white;
     background: #99c796;
     border-radius: 20px;
     font-size: 20px;
     border: none;
+    font-weight: bold;
 }
 
 .boutonCancel:hover {
     background: #6c8a69;
     color: white;
+}
+
+/*AffichageScore*/
+#actualScore {
+    min-height: 40vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+/*Affichage erreur*/
+.error {
+    color: red;
+    margin-top: 20px;
 }

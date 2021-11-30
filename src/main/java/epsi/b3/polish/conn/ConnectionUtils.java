@@ -6,20 +6,25 @@ import java.sql.SQLException;
 
 public class ConnectionUtils {
 
+    /**
+     *
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     * @throws IOException
+     */
     public static Connection getConnection()
             throws ClassNotFoundException, SQLException, IOException {
 
-        // Ici, je me connecte à l'Oracle Database.
-        // (Vous pouvez également utiliser d'autre base de données).
+        // Connection à la base de données MySQL
         return MySQLConnUtils.getMySQLConnection();
-
-        // return OracleConnUtils.getOracleConnection();
-        // return MySQLConnUtils.getMySQLConnection();
-        // return SQLServerConnUtils_JTDS.getSQLServerConnection_JTDS();
-        // return SQLServerConnUtils_SQLJDBC.getSQLServerConnection_SQLJDBC();
-        // return PostGresConnUtils.getPostGresConnection();
     }
 
+    /**
+     * Fonction permettant de fermer la connection avec la base de données.
+     *
+     * @param conn
+     */
     public static void closeQuietly(Connection conn) {
         try {
             conn.close();
@@ -27,6 +32,12 @@ public class ConnectionUtils {
         }
     }
 
+    /**
+     * Fonction permettant d'annuler les requêtes que l'on vient de réaliser
+     * depuis la base de données.
+     *
+     * @param conn
+     */
     public static void rollbackQuietly(Connection conn) {
         try {
             conn.rollback();

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +10,12 @@
 </head>
 <body>
 
-<h1 class="centrerElement" id="titrePage">Veuillez vous inscrire/connecter pour pouvoir jouer</h1>
+<h1 class="titleElement">Veuillez vous inscrire/connecter pour pouvoir jouer</h1>
 
-<div class="elementConnexion" id="boutonJeu">
-    <a href="${pageContext.request.contextPath}/register">S'inscrire</a>
-    <a href="${pageContext.request.contextPath}/login">Se connecter</a>
+<div id="centeredElements">
+    <a class="connexionButton" href="${pageContext.request.contextPath}/register">S'inscrire</a>
+    <a class="connexionButton" href="${pageContext.request.contextPath}/login">Se connecter</a>
 </div>
+
 </body>
 </html>

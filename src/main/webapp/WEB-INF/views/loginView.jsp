@@ -10,32 +10,35 @@
 </head>
 <body>
 
-<h1 class="centrerElement" id="titrePage">Connexion</h1>
+<h1 class="titleElement">Connexion</h1>
 
-<div style="display: flex; justify-content: center; margin-top: 200px;">
+<div id="centeredElements">
     <form method="POST" action="${pageContext.request.contextPath}/login">
-        <table border="0">
+        <table >
             <tr>
                 <td>Nom d'utilisateur</td>
-                <td><input type="text" name="userName" value="${user.userName}"/></td>
+                <td>
+                    <input type="text" name="userName" value="${user.userName}"/>
+                </td>
             </tr>
             <tr>
                 <td>Mot de passe</td>
                 <td><input type="password" name="password" value="${user.password}"/></td>
             </tr>
-            <tr>
-                <td>Se souvenir de moi</td>
-                <td><input type="checkbox" name="rememberMe" value="Y"/></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <a class="boutonLogin" href="${pageContext.request.contextPath}/">Annuler</a>
-                    <input type="submit" class="boutonLogin" value="Se connecter"/>
-                </td>
-            </tr>
         </table>
-
-        <p style="color: red; margin-top: 20px;">${errorString}</p>
+        <table class="centeredAlign">
+        <tr>
+            <td>Se souvenir de moi</td>
+            <td><input type="checkbox" name="rememberMe" value="Y"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a class="loginButton" href="${pageContext.request.contextPath}/">Annuler</a>
+                <input type="submit" class="loginButton" value="Se connecter"/>
+            </td>
+        </tr>
+        </table>
+        <p class="error">${errorString}</p>
     </form>
 </div>
 </body>

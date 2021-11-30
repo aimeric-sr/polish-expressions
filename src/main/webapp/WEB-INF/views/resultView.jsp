@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h1 class="centrerElement" id="titrePage">Résultats</h1>
+<h1 class="titleElement">Résultats</h1>
 
 <div style="display: flex; justify-content: flex-end; margin-top: 10px; margin-right: 10px">
     <form method="POST" action="${pageContext.request.contextPath}/disconnect">
@@ -17,7 +17,7 @@
     </form>
 </div>
 
-<div class="centrerElement" id="boutonJeu">
+<div id="actualScore">
     <h1>Votre score est de <c:out value="${actualScore}"/>/10</h1>
 </div>
 

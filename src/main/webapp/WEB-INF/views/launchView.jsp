@@ -1,14 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: etienne
-  Date: 18/11/2021
-  Time: 14:57
-  To change this template use File | Settings | File Templates.
---%>
 <!DOCTYPE html>
 <html>
-<head>r
+<head>
     <meta charset="UTF-8">
     <title>Let's go</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/bootstrap-5.1.3-dist/css/bootstrap.css">
@@ -16,25 +9,25 @@
 </head>
 <body>
 
-<h1 class="centrerElement" id="titrePage">Une petite partie de Polish Expressions ?</h1>
+<h1 class="titleElement">Une petite partie de Polish Expressions ?</h1>
 
-<div style="display: flex; justify-content: flex-end; margin-top: 10px; margin-right: 10px">
+<div class="disconnect">
     <form method="POST" action="${pageContext.request.contextPath}/disconnect">
-        <input type="submit" class="boutonDisconnect" value="Quitter"/>
+        <input class="boutonDisconnect" type="submit" value="Quitter"/>
     </form>
 </div>
 
-<div class="centrerElement" id="boutonJeu">
-    <a href="${pageContext.request.contextPath}/game">C'est parti !</a>
+<div id="letsGo">
+    <a class="connexionButton" href="${pageContext.request.contextPath}/game">C'est parti !</a>
 </div>
 
-<div style="display: flex; justify-content: center; margin-top: 30px">
+<div class="bestScore">
     <h3>Les meilleurs scores</h3>
 </div>
 
 
-<table style="margin-top: 50px">
-    <tr style="display: flex; justify-content: space-evenly">
+<table>
+    <tr class="classementScores">
         <c:if test="${!scores.isEmpty()}">
             <th>
                 <c:forEach var="i" begin="0" end="${scores.size() < 5 ? scores.size() - 1 : 4}">

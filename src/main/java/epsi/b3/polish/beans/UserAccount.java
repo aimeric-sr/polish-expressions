@@ -7,7 +7,6 @@ public class UserAccount {
 
 
     public UserAccount() {
-
     }
 
     public String getUserName() {

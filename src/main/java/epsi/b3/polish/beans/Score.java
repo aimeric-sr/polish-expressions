@@ -6,7 +6,6 @@ public class Score {
     private String userName;
 
     public Score() {
-
     }
 
     public Score(int score, String userName) {

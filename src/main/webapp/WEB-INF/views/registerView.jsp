@@ -10,32 +10,35 @@
 </head>
 <body>
 
-<h1 class="centrerElement" id="titrePage">Inscription</h1>
+<h1 class="titleElement">Inscription</h1>
 
-<div style="display: flex; justify-content: center; margin-top: 200px;">
+<div id="centeredElements">
     <form method="POST" action="${pageContext.request.contextPath}/register">
-        <table border="0">
+        <table style="position: center">
             <tr>
                 <td>Nom d'utilisateur</td>
-                <td><input type="text" name="userName" value="${user.userName}"/></td>
+                <td>
+                    <input type="text" name="userName" value="${user.userName}"/>
+                </td>
             </tr>
             <tr>
                 <td>Mot de passe</td>
                 <td><input type="password" name="password" value="${user.password}"/></td>
             </tr>
+        </table>
+        <table class="centeredAlign">
             <tr>
                 <td>Se souvenir de moi</td>
                 <td><input type="checkbox" name="rememberMe" value="Y"/></td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <a class="boutonLogin" href="${pageContext.request.contextPath}/">Annuler</a>
-                    <input type="submit" class="boutonLogin" value="S'inscrire"/>
+                <td>
+                    <a class="loginButton" href="${pageContext.request.contextPath}/">Annuler</a>
+                    <input type="submit" class="loginButton" value="S'inscrire"/>
                 </td>
             </tr>
         </table>
-
-        <p style="color: red; margin-top: 20px;">${errorString}</p>
+        <p class="error">${errorString}</p>
     </form>
 </div>
 
