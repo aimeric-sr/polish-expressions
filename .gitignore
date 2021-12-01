@@ -25,3 +25,5 @@ src/main/ressources/config.env
 hs_err_pid*
 
 /target
+/lib
+/.idea

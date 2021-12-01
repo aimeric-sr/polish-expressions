@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="polish-expressions" />
+        <module name="Lepetit_Sorin_polish-expressions" />
         <module name="polish-expression" />
       </profile>
     </annotationProcessing>
