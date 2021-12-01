@@ -27,7 +27,7 @@ qu'il en va de même avec les opérateurs unaires, cependant, on prend seulement
 
 ## Pré-requis
 
-- Java
+- Java 17
 - MySQL
 - Apache Tomcat
 
@@ -79,6 +79,10 @@ qu'il en va de même avec les opérateurs unaires, cependant, on prend seulement
         String userName = "root";
         String password = "<Le mot de passe de votre utilisateur 'root'>";
 
+- Enfin, télécharger la bibliothèque suivante [mysql-connector-java.jar](https://jar-download.com/artifacts/mysql/mysql-connector-java) 
+(la version de ce fichier dépend de votre version de java, pour la version 17, prenez la plus récente).
+Créer un répertoire lib dans le répertoire `polish-expressions/src/main/webapp/WEB-INF/` et y ajouter la bibliothèque java.
+
 ## Utilisation
 
 Configurer Tomcat dans Intellij comme-suit : 
@@ -101,7 +105,7 @@ Configurer Tomcat dans Intellij comme-suit :
 ## Fabriqué avec
 
 * [Intellij IDEA](https://www.jetbrains.com/fr-fr/idea/) - IDE
-* [Java](https://www.java.com/fr/) - Langage de programmation
+* [Java 17](https://www.java.com/fr/) - Langage de programmation
 * [MySQL](https://www.mysql.com/fr/) - Système de gestion de bases de données relationnelles
 * [Apache Tomcat](http://tomcat.apache.org/) - Serveur d'applications
 
