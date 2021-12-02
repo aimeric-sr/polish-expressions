@@ -81,7 +81,9 @@ qu'il en va de même avec les opérateurs unaires, cependant, on prend seulement
 
 - Enfin, télécharger la bibliothèque suivante [mysql-connector-java.jar](https://jar-download.com/artifacts/mysql/mysql-connector-java) 
 (la version de ce fichier dépend de votre version de java, pour la version 17, prenez la plus récente).
-Créer un répertoire lib dans le répertoire `polish-expressions/src/main/webapp/WEB-INF/` et y ajouter la bibliothèque java.
+Créer un répertoire lib dans le répertoire `polish-expressions/src/main/webapp/WEB-INF/` et y glisser la bibliothèque java
+(attention à ne pas faire un copier/coller, mais bien de le glisser, au risque de ne pas pouvoir faire fonctionner l'application).
+
 
 ## Utilisation
 
