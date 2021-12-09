@@ -2,10 +2,6 @@ package epsi.b3.polish.beans;
 
 /**
  * Représente un joueur connecté.
- *
- * @author Aimeric Sorin
- * @author Etienne Lepetit
- * @version 1.0
  */
 public class UserAccount {
 

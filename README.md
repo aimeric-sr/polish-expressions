@@ -118,6 +118,7 @@ Configurer Tomcat dans Intellij comme-suit :
 
 
 ## Auteurs
-* **[Aimeric Sorin](https://github.com/EtienneLep)**
-* **[Etienne Lepetit](https://github.com/aimeric-sr)**
+* **[Aimeric Sorin](https://github.com/aimeric-sr)**
+* **[Antoine Petit](https://github.com/PetitAntoine)**
+* **[Etienne Lepetit](https://github.com/EtienneLep)**
 

@@ -2,10 +2,6 @@ package epsi.b3.polish.beans;
 
 /**
  * Représente un score d'un joueur.
- *
- * @author Aimeric Sorin
- * @author Etienne Lepetit
- * @version 1.0
  */
 public class Score {
 
